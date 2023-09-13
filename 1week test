@@ -1,0 +1,54 @@
+#include <stdio.h> // VS 헤더 파일 폴더 검색
+#include "LibConsole.h" // 현재 폴더 검색
+#include "LibGameTool.h"
+
+/* Coin Toss Game의 규칙?
+1. 사용자에게 앞면(Front), 뒷면(Back) 선택 기회 제공 : 사용자 입력을 받을 준비하기
+2. 난수 발생 --> 동전의 앞면, 뒷면을 선택
+3. 사용자 입력과 난수를 비교해서 득점여부 판단하기
+*/
+
+// 상수 나열(enumeration: enum 상수나열명 {상수 선언}
+enum CoinType
+{
+	CT_BACK=0, CT_FRONT, CT_NULL // CT_FRONT = 1 / CT_NULL = 2
+};
+
+// 함수 선언(헤더 파일) --> 함수 정의(소스 파일)
+enum CoinType ipCoin(void);
+
+// 출력자료형 함수명 (입력 선언, ...) {...}
+void main(void) // void(없는)
+{
+	randseed(); // 난수 발생기 시작값 초기화; LibGameTool.h에 정의
+	// 자료형 변수명 = 초기값;
+	enum CoinType nIp = ipCoin(); // = : 할당 연산자(오른쪽 값[R{Right}value] --> 왼쪽 변수에 할당[l{left}value])
+
+	settextcol(GREEN);
+	printf("응 아잇 푸잇?");
+	settextcol(YELLOW);
+}
+
+// 출력자료형 함수명 (입력 선언, ...) {...}
+enum CoinType ipCoin(void)
+{
+	puts("동전 앞면(F) 또는 뒷면(B)를 선택하세요. "); // 문자열(string) 출력
+	printf("당신의 선택은 ? ");
+	char cIp = _getche(); // e: echo(반향)
+	if(cIp == 'F' || cIp== 'f')
+	{
+		puts("\n앞면을 선택하셨습니다.");
+		return CT_FRONT;
+	}
+	else if (cIp == 'B' || cIp == 'b')
+	{
+		puts("\n뒷면을 선택하셨습니다.");
+		return CT_BACK;
+	}
+	else 
+	{
+		printf("잘못 입력하셨습니다.");
+		return CT_NULL;
+	}
+	//return CT_NULL;
+}
